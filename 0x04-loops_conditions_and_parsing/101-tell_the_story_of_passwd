@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# printing story with every line of /etc/passwd.
+
+plainq="/etc/passwd"
+while IFS=: read -r kn pc vn tit bb yy xx
+do
+    echo "The user $kn is part of the $tit gang, lives in $yy and rides $xx. $vn's place is protected by the passcode $pc, more info about the user here: $bb"
+done < "$plainq"

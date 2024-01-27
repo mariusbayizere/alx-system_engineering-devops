@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Display information about the school file.
+
+jole="school"
+
+if [ -e "$jole" ]
+then
+    echo "school file exists"
+    if [ ! -s "$jole" ]
+    then
+        echo "school file is empty"
+    else
+        echo "school file is not empty"
+    fi
+    if [ -f "$jole" ]
+    then
+        echo "school is a regular file"
+    fi
+else
+    echo "school file does not exist"
+fi
