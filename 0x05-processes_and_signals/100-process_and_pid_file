@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Bash script that:
+#Creates the file /var/run/myscript.pid containing its PID
+
+function beyond() {
+    rm /var/run/holbertonscript.pid
+    exit
+}
+
+trap "echo I hate the kill command;love" SIGTERM
+trap "echo Y U no love me?!;love" SIGINT
+
+echo $$ >> /var/run/holbertonscript.pid
+while [ true ]; do
+    echo To infinity and beyond;
+done
