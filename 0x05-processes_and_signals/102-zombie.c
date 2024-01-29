@@ -33,7 +33,7 @@ int main(void)
 	return (EXIT_SUCCESS);
 }
 /**
- * infinite_while -  A function that runs an infinite loop with a 1-second delay.
+ * infinite_while -  A function that runs an infinite loop 1-second delay.
  *
  * Return: Always 0.
  */
