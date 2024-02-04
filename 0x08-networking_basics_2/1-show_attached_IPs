@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# IPs displayed may be different depending on which machine 
+# you are running the script
+
+ifconfig | grep -Eo "inet (addr:)?([0-9]*\.){3}[0-9]*" | cut -b 11-
+
