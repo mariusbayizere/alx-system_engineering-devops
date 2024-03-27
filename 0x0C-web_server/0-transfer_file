@@ -1,5 +1,5 @@
 #!/usr/bin/env bash 
-#shell script that will help to sending file btn client and server
+# shell script that will help to sending file btn client and server
 
 if [ $# -lt 4 ]
 then
