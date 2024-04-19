@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Bash script to connect to private SSH and execute a command
+
+# Connect to SSH server and execute a command
+ssh -i ~/.ssh/school ubuntu@35.174.209.52
