@@ -1,4 +1,4 @@
-# Define the package for Python 3 pip
+# Install flask
 package { 'python3-pip':
   ensure => installed,
 }
