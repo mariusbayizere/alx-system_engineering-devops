@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# bash script that will all user to log in ssh
+# bash script that will allow user to login server to log in ssh
 
 eval "$(ssh-agent)"
 
