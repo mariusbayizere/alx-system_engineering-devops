@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# configure HAproxy on your lb-01 server.
+
+function install_package() {
+	command -v "$1" &> /dev/null
+
+	#checking the parameter passed equal to zero
+	if [ $? -ne 0 ]; then
+		echo -e "	Installing: $1\n"
+		sudo apt-get update -y -qq && \
+			sudo apt-get install -y "$1" -qq
+		echo -e "\n"
+	else
+		echo -e "${1} is already installed.\n"
+	fi
+}
+
+install_package haproxy
+
+sudo cp /etc/haproxy/haproxy.cfg haproxy_default.backup
+
+server_config=\
+"
+defaults
+  mode http
+  timeout client 15s
+  timeout connect 10s
+  timeout server 15s
+  timeout http-request 10s
+
+frontend http-in
+    bind *:80
+    default_backend servers
+
+backend servers
+    balance roundrobin
+    server 33567-web-01 174.129.55.119:80 check
+    server 33567-web-02 54.160.100.228:80 check
+"
+
+# make check shellcheck Close=SC2154
+echo "$server_config" | sudo dd status=none of=/etc/haproxy/haproxy.cfg
+
+# to starting service of HAproxy
+echo "ENABLED=1" | sudo dd status=none of=/etc/default/haproxy
+
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	sudo service haproxy start
+else
+	sudo service haproxy restart
+fi
