@@ -1,6 +1,7 @@
-#!/bin/env bash
-# Using what you did for task #0, make your fix short and sweet
-sudo sed -i "s/8080/80/" /etc/nginx/sites-enabled/default
-sudo service nginx restart
-echo "" | sudo dd status=none of=/run/nginx.pid
+#!/usr/bin/env bash
+# Fixes the issue of nginx not running
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo service nginx start
 
