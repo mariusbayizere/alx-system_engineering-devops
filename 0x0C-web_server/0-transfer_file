@@ -12,5 +12,4 @@ user_name=$2
 secureshell=$4
 address_id=$3
 
-scp -o "RestrictHostKeyChecking=no" -i "$secureshell" "$file_name" "$user_name@$address_id:~/"
-
+scp -o "StrictHostKeyChecking=no" -i "$secureshell" "$file_name" "$user_name@$address_id:~/"
