@@ -34,8 +34,8 @@ frontend http-in
 
 backend servers
     balance roundrobin
-    server 33567-web-01 174.129.55.119:80 check
-    server 33567-web-02 54.160.100.228:80 check
+    server 33567-web-01 3.84.239.91:80 check
+    server 33567-web-02 54.165.31.141:80 check
 "
 
 # make check shellcheck Close=SC2154
