@@ -1,32 +1,19 @@
 #!/usr/bin/env bash
-# install abd configures ubuntu machine 
+# creating error page
 
-echo -e "installing Nginx\n"
-sudo apt-get update -y -qq && \
-	 sudo apt-get install nginx -y
+# update and install nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-echo -e "\nSetting up some minor stuff.\n"
+# make file index.html
+echo "Hello World!" | sudo tee /var/www/html/index.html
 
-# starting nginx service
-sudo service nginx start
+# make rediretion page
+marius="server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/mariusbayizere permanent;"
+sudo sed -i "s/server_name _;/$marius/" /etc/nginx/sites-enabled/default
 
-# allowing nginx on firewall
-sudo ufw allow 'Nginx HTTP'
+# test if our web is ok
+sudo nginx -t
 
-# changing the owner of the user for website 
-sudo chown -R "$USER":"$USER" /var/www/html
-sudo chmod -R 755 /var/www
-
-# to copy to the that path inorder to make the backup
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
-
-# create the content in the page 
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
-
-# redirect the user to the youtube 
-sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
-
-# starting service again
+# starting nginx server
 sudo service nginx restart
-
-echo -e "Completed\n"
