@@ -23,4 +23,3 @@ sudo nginx -t
 
 # starting nginx server
 sudo service nginx restart
-
