@@ -18,4 +18,4 @@ echo "SSH Key: $secureshell"
 echo "Address ID: $address_id"
 
 # Test the scp command with variable values
-scp -o "StrictHostKeyChecking=no" -i "$secureshell" "$file_name" "$user_name@$address_id:~/"
+scp -o "StrictHostKeyChecking no" -i "$secureshell" "$file_name" "$user_name@$address_id:~/"
