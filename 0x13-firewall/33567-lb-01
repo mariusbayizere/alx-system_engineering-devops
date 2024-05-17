@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# bash script that will allow user to login server to log in ssh
+
+eval "$(ssh-agent)"
+
+ssh-add ~/.ssh/school
+
+ssh ubuntu@100.24.253.210
+
