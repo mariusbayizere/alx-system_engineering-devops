@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""this module is responsible for receiving the id and printing"""
+""" Script that uses JSONPlaceholder API to get information about employee """
 import requests
 import sys
 
@@ -11,16 +11,17 @@ def get_employee_todo_progress(employee_id):
     Args:
         employee_id (int): The ID of the employee
     """
-    url = "https://jsonplaceholder.typicode.com"
+    url = 'https://jsonplaceholder.typicode.com/'
 
     # Fetch employee data
-    user_response = requests.get(f"{url}/users/{employee_id}")
+    user_url = '{}users/{}'.format(url, employee_id)
+    user_response = requests.get(user_url)
     user = user_response.json()
     employee_name = user.get('name')
 
     # Fetch TODO list data for the employee
-    todos_response = requests.get(f"{url}/todos",
-                                  params={'userId': employee_id})
+    todos_url = '{}todos?userId={}'.format(url, employee_id)
+    todos_response = requests.get(todos_url)
     todos = todos_response.json()
 
     # Calculate the number of completed tasks and total tasks
