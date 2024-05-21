@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""this module is responsible for receiving the id and printing"""
 import requests
 import sys
 
@@ -6,6 +7,7 @@ import sys
 def get_employee_todo_progress(employee_id):
     """
     Fetch and display the TODO list progress for a given employee.
+
     Args:
         employee_id (int): The ID of the employee
     """
