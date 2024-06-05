@@ -1,21 +1,14 @@
-# 0-strace_is_your_friend.pp
-# This Puppet manifest installs PHP and the missing php-mysql module to fix the 500 Internal Server Error in Apache
+# This Puppet manifest ensures that the Apache user has the correct permissions on the /var/www/html directory
 
-exec { 'install_php':
-  command => '/usr/bin/apt-get update && /usr/bin/apt-get install -y php',
-  path    => ['/usr/bin', '/usr/sbin'],
-  unless  => 'which php',
+exec { 'fix-permissions':
+  command => '/bin/chown -R www-data:www-data /var/www/html',
+  onlyif  => '/usr/bin/find /var/www/html ! -user www-data',
 }
 
-exec { 'install_php_mysql':
-  command => '/usr/bin/apt-get install -y php-mysql',
-  path    => ['/usr/bin', '/usr/sbin'],
-  unless  => '/usr/bin/php -m | grep mysql',
-  require => Exec['install_php'],
-}
-
-service { 'apache2':
-  ensure  => 'running',
-  enable  => true,
-  require => Exec['install_php_mysql'],
+file { '/var/www/html':
+  ensure => directory,
+  owner  => 'www-data',
+  group  => 'www-data',
+  mode   => '0755',
+  recurse => true,
 }
