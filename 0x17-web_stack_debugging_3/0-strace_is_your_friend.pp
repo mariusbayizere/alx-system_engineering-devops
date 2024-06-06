@@ -1,14 +1,20 @@
-# This Puppet manifest ensures that the Apache user has the correct permissions on the /var/www/html directory
+# This Puppet manifest installs the missing PHP module and restarts Apache
 
-exec { 'fix-permissions':
-  command => '/bin/chown -R www-data:www-data /var/www/html',
-  onlyif  => '/usr/bin/find /var/www/html ! -user www-data',
+exec { 'install-php-module':
+  command => '/usr/bin/apt-get install -y php-mysql',
+  path    => ['/usr/bin', '/usr/sbin', '/bin', '/sbin'],
+  unless  => '/usr/bin/dpkg -l | grep -q "^ii  php-mysql"',
 }
 
-file { '/var/www/html':
-  ensure => directory,
-  owner  => 'www-data',
-  group  => 'www-data',
-  mode   => '0755',
-  recurse => true,
+service { 'apache2':
+  ensure     => 'running',
+  enable     => true,
+  require    => Exec['install-php-module'],
+}
+
+# Ensure Apache is restarted after the PHP module is installed
+exec { 'restart-apache2':
+  command     => '/usr/sbin/service apache2 restart',
+  refreshonly => true,
+  subscribe   => Exec['install-php-module'],
 }
